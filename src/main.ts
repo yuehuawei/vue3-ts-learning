@@ -1,7 +1,8 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import { registerApp } from "./global";
-
+import "normalize.css";
+import "./assets/css/index.less";
 import ackRequest from "./service";
 
 import router from "./router";
@@ -15,7 +16,7 @@ app.use(store);
 
 app.mount("#app");
 
-ackRequest.request({
-  url: "/home/multidata",
-  method: "GET",
-});
+// ackRequest.request({
+//   url: "/home/multidata",
+//   method: "GET",
+// });

@@ -55,7 +55,7 @@ class AckRequest {
       },
     );
   }
-  request<T>(config: AckRequestConfig): Promise<T> {
+  request<T>(config: AckRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config);
@@ -64,7 +64,7 @@ class AckRequest {
         .request<any, T>(config)
         .then((res) => {
           if (config.interceptors?.responseInterceptor) {
-            // res = config.interceptors.responseInterceptor(res);
+            res = config.interceptors.responseInterceptor(res);
           }
           resolve(res);
         })
@@ -74,25 +74,25 @@ class AckRequest {
     });
   }
 
-  get<T>(config: AckRequestConfig): Promise<T> {
+  get<T>(config: AckRequestConfig<T>): Promise<T> {
     return this.request<T>({
       ...config,
       method: "GET",
     });
   }
-  post<T>(config: AckRequestConfig): Promise<T> {
+  post<T>(config: AckRequestConfig<T>): Promise<T> {
     return this.request<T>({
       ...config,
       method: "POST",
     });
   }
-  delete<T>(config: AckRequestConfig): Promise<T> {
+  delete<T>(config: AckRequestConfig<T>): Promise<T> {
     return this.request<T>({
       ...config,
       method: "DELETE",
     });
   }
-  patch<T>(config: AckRequestConfig): Promise<T> {
+  patch<T>(config: AckRequestConfig<T>): Promise<T> {
     return this.request<T>({
       ...config,
       method: "PATCH",

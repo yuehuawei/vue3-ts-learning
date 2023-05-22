@@ -1,4 +1,6 @@
 import { App } from "vue";
+
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import "element-plus/dist/index.css";
 import {
   ElAlert,
@@ -8,6 +10,10 @@ import {
   ElFormItem,
   ElInput,
   ElRadio,
+  ElTabs,
+  ElTabPane,
+  ElLink,
+  ElCheckbox,
 } from "element-plus";
 const components = [
   ElAlert,
@@ -17,9 +23,16 @@ const components = [
   ElFormItem,
   ElInput,
   ElRadio,
+  ElTabs,
+  ElTabPane,
+  ElLink,
+  ElCheckbox,
 ];
 export default function (app: App): void {
   for (const component of components) {
     app.component(component.name, component);
+  }
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component);
   }
 }
