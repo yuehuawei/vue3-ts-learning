@@ -23,7 +23,6 @@ class AckRequest {
     // 添加所有实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log("all interceptors request success");
         if (this.showLoading) {
           this.loading = ElLoading.service({
             lock: true,
@@ -32,13 +31,11 @@ class AckRequest {
         return config;
       },
       (err) => {
-        console.log("all interceptors request fail");
         return err;
       },
     );
     this.instance.interceptors.response.use(
       (res) => {
-        console.log("all interceptors response success");
         this.loading?.close();
         const data = res.data;
         // if (data.returnCode === "-1001") {
@@ -49,8 +46,6 @@ class AckRequest {
         return data;
       },
       (err) => {
-        console.log("all interceptors response fail");
-
         return err;
       },
     );

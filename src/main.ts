@@ -3,20 +3,15 @@ import App from "./App.vue";
 import { registerApp } from "./global";
 import "normalize.css";
 import "./assets/css/index.less";
-import ackRequest from "./service";
 
 import router from "./router";
 import store from "./store";
+import { setupStore } from "./store";
 
 const app = createApp(App);
 app.use(registerApp);
 
 app.use(router);
 app.use(store);
-
+setupStore();
 app.mount("#app");
-
-// ackRequest.request({
-//   url: "/home/multidata",
-//   method: "GET",
-// });
