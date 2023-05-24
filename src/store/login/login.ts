@@ -51,7 +51,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       const userMenus = userMenusResult.data;
       console.log(userMenus);
       commit("changeUserMenus", userMenus);
-      localCache.setCache("changeUserMenus", userMenus);
+      localCache.setCache("userMenus", userMenus);
       // jump to index
       router.push("/main");
     },
