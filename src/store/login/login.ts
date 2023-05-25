@@ -8,6 +8,7 @@ import {
   requestUserMenuByRoleId,
 } from "@/service/login/login";
 import localCache from "@/utils/cache";
+import { mapMenusToRoutes } from "@/utils/map-menus";
 import router from "@/router";
 
 const loginModule: Module<ILoginState, IRootState> = {
@@ -28,6 +29,12 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus;
+      // userMenus => routes
+      const routes = mapMenusToRoutes(userMenus);
+      // 将routes => router.main.children
+      routes.forEach((route) => {
+        router.addRoute("main", route);
+      });
     },
   },
   getters: {},
@@ -36,7 +43,6 @@ const loginModule: Module<ILoginState, IRootState> = {
       console.log(payload);
 
       const loginResult = await accountLoginRequest(payload);
-      console.log(loginResult);
       const { id, token } = loginResult.data;
       // token
       commit("changeToken", token);
@@ -49,7 +55,6 @@ const loginModule: Module<ILoginState, IRootState> = {
       // usermenu
       const userMenusResult = await requestUserMenuByRoleId(userInfo.role.id);
       const userMenus = userMenusResult.data;
-      console.log(userMenus);
       commit("changeUserMenus", userMenus);
       localCache.setCache("userMenus", userMenus);
       // jump to index

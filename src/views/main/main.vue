@@ -8,7 +8,11 @@
         <el-header class="page-header"
           ><nav-header @foldchange="handleFoldClick"
         /></el-header>
-        <el-main class="page-content">Main</el-main>
+        <el-main class="page-content">
+          <div class="page-info">
+            <router-view> </router-view>
+          </div>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -26,7 +30,6 @@ export default defineComponent({
   setup() {
     const isCollapse = ref(false);
     const handleFoldClick = (isFold: boolean) => {
-      console.log(isFold);
       isCollapse.value = isFold;
     };
     return {
@@ -53,6 +56,10 @@ export default defineComponent({
 
 .page-content {
   height: calc(100% - 48px);
+  .page-info {
+    background-color: #fff;
+    border-radius: 5px;
+  }
 }
 
 .el-header,
