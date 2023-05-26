@@ -10,8 +10,8 @@ import { setupStore } from "./store";
 
 const app = createApp(App);
 app.use(registerApp);
-
+setupStore();
 app.use(router);
 app.use(store);
-setupStore();
+
 app.mount("#app");
