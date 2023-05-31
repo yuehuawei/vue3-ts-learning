@@ -5,7 +5,9 @@
       <template #footer>
         <div class="handle-btns">
           <el-button icon="Edit" @click="handleResetClick">重置</el-button>
-          <el-button type="primary" icon="Search">搜索</el-button>
+          <el-button type="primary" icon="Search" @click="handleQueryClick"
+            >搜索</el-button
+          >
         </div>
       </template>
     </ack-form>
@@ -26,7 +28,8 @@ export default defineComponent({
   components: {
     AckForm,
   },
-  setup(props) {
+  emits: ["resetBtnClick", "queryBtnClick"],
+  setup(props, { emit }) {
     // 双向绑定的属性应该由配置文件的field决定
     const formItems = props.searchFormConfig?.formItems ?? [];
     const formOriginData: any = {};
@@ -37,11 +40,18 @@ export default defineComponent({
 
     // 当用户点击重置
     const handleResetClick = () => {
-      formData.value = formOriginData;
+      for (const key in formOriginData) {
+        formData.value[`${key}`] = formOriginData[key];
+      }
+      emit("resetBtnClick");
+    };
+    const handleQueryClick = () => {
+      emit("queryBtnClick", formData.value);
     };
     return {
       formData,
       handleResetClick,
+      handleQueryClick,
     };
   },
 });
