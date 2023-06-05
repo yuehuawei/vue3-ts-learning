@@ -89,7 +89,7 @@ export default defineComponent({
     page: {
       type: Object,
       default: () => ({
-        currentPage: 0,
+        currentPage: 1,
         pageSize: 10,
       }),
     },

@@ -68,7 +68,7 @@ export default defineComponent({
     const isQuery = usePermission(props.pageName, "query");
 
     const pageInfo = ref({
-      currentPage: 0,
+      currentPage: 1,
       pageSize: 10,
     });
     watch(pageInfo, () => {
@@ -82,7 +82,7 @@ export default defineComponent({
       store.dispatch("system/getPageListAction", {
         pageName: props.pageName,
         queryInfo: {
-          offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+          offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
           size: pageInfo.value.pageSize,
           ...queryInfo,
         },
